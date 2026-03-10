@@ -1,0 +1,6 @@
+@Perf.Api_HostAddress = http://localhost:5202
+
+GET {{Perf.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
