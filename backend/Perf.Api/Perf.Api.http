@@ -4,3 +4,19 @@ GET {{Perf.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### Test Admin Dashboard Endpoint
+GET {{Perf.Api_HostAddress}}/api/admin/dashboard
+Accept: application/json
+###
+
+### Register a new user
+POST {{Perf.Api_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "newadmin",
+  "password": "aVeryStrongPassword123!",
+  "email": "admin@example.com"
+}
+###
