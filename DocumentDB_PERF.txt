@@ -1,0 +1,330 @@
+TÀI LIỆU MÔ TẢ CƠ SỞ DỮ LIỆU – DỰ ÁN PERF
+
+Cơ sở dữ liệu của hệ thống PERF được thiết kế theo kiến trúc module nhằm hỗ trợ một hệ thống thương mại điện tử kết hợp với quản lý nhân sự và tính lương. 
+Các bảng được chia thành 5 module chính nhằm giúp hệ thống dễ mở rộng và dễ bảo trì.
+
+Các module bao gồm:
+
+1. Admin & Permission (Quản lý phân quyền hệ thống)
+2. Product & Inventory (Quản lý sản phẩm và kho)
+3. Sales & Orders (Quản lý khách hàng và đơn hàng)
+4. HR & Payroll (Quản lý nhân sự và tính lương)
+5. Promotion & Discount (Quản lý khuyến mãi)
+
+
+================================================
+MODULE 1: ADMIN & PERMISSION
+Quản lý phân quyền hệ thống
+================================================
+
+Bảng: roles
+Chức năng: Lưu các vai trò trong hệ thống.
+
+Ví dụ:
+Admin
+Manager
+Sales
+Warehouse
+
+
+Bảng: permissions
+Chức năng: Lưu các quyền cụ thể trong hệ thống.
+
+Ví dụ:
+view_products
+create_products
+update_orders
+manage_users
+
+
+Bảng: role_permissions
+Chức năng: Xác định mỗi vai trò sẽ có những quyền nào.
+
+
+Bảng: audit_logs
+Chức năng: Lưu lịch sử hoạt động của nhân viên trong hệ thống.
+
+Ví dụ:
+Tạo sản phẩm
+Cập nhật đơn hàng
+Xóa sản phẩm
+
+
+================================================
+MODULE 2: PRODUCT & INVENTORY
+Quản lý sản phẩm, danh mục, thương hiệu và nhà cung cấp
+================================================
+
+Bảng: categories
+Chức năng: Lưu thông tin danh mục sản phẩm.
+
+Ví dụ: Laptop, CPU, GPU, RAM.
+
+Trường đặc biệt:
+- slug: Chuỗi định danh thân thiện với URL, thường dùng cho SEO hoặc API.
+
+
+Bảng: brands
+Chức năng: Lưu thông tin thương hiệu của sản phẩm.
+
+Ví dụ: Intel, AMD, ASUS, Apple.
+
+Trường đặc biệt:
+- slug: Tên thương hiệu ở dạng URL-friendly để sử dụng trong đường dẫn.
+
+
+Bảng: products
+Chức năng: Lưu thông tin cơ bản của sản phẩm.
+
+Trường đặc biệt:
+- stock: Số lượng sản phẩm hiện có trong kho.
+- category_id: Khóa ngoại liên kết tới bảng categories.
+- brand_id: Khóa ngoại liên kết tới bảng brands.
+- image_url: Đường dẫn tới hình ảnh sản phẩm.
+
+
+Bảng: product_specs
+Chức năng: Lưu các thông số kỹ thuật của sản phẩm theo dạng key-value.
+
+Ví dụ:
+CPU001 | cores | 8
+CPU001 | threads | 16
+
+Trường đặc biệt:
+- spec_key: Tên thông số kỹ thuật.
+- spec_value: Giá trị của thông số.
+
+Thiết kế này giúp hệ thống linh hoạt khi thêm các thông số mới mà không cần thay đổi cấu trúc bảng.
+
+
+Bảng: suppliers
+Chức năng: Lưu thông tin nhà cung cấp sản phẩm cho cửa hàng.
+
+
+Bảng: purchase_orders
+Chức năng: Lưu thông tin đơn nhập hàng từ nhà cung cấp.
+
+Trường đặc biệt:
+- supplier_id: Khóa ngoại liên kết tới nhà cung cấp.
+- total_price: Tổng giá trị của đơn nhập hàng.
+
+
+Bảng: purchase_order_items
+Chức năng: Lưu chi tiết sản phẩm trong từng đơn nhập hàng.
+
+Trường đặc biệt:
+- quantity: Số lượng sản phẩm nhập.
+- price: Giá nhập của sản phẩm.
+
+
+================================================
+MODULE 3: SALES & ORDERS
+Quản lý khách hàng và đơn hàng
+================================================
+
+Bảng: users
+Chức năng: Lưu thông tin cơ bản của người dùng trong hệ thống.
+
+Trường đặc biệt:
+- avatar_url: Đường dẫn tới hình đại diện của người dùng.
+
+
+Bảng: customer_accounts
+Chức năng: Lưu thông tin đăng nhập của khách hàng.
+
+Trường đặc biệt:
+- password_hash: Mật khẩu đã được mã hóa để đảm bảo an toàn.
+
+
+Bảng: addresses
+Chức năng: Lưu địa chỉ giao hàng của khách hàng.
+
+Trường đặc biệt:
+- is_default: Xác định đây có phải là địa chỉ mặc định của khách hàng hay không.
+
+
+Bảng: orders
+Chức năng: Lưu thông tin đơn hàng của khách hàng.
+
+Trường đặc biệt:
+- status: Trạng thái đơn hàng.
+
+Ví dụ:
+Pending
+Processing
+Shipped
+Completed
+Cancelled
+
+- discount_amount: Tổng số tiền được giảm giá trong đơn hàng.
+- final_price: Tổng tiền cuối cùng khách phải thanh toán sau khi áp dụng khuyến mãi.
+
+
+Bảng: order_items
+Chức năng: Lưu chi tiết các sản phẩm trong từng đơn hàng.
+
+Trường đặc biệt:
+- price: Giá sản phẩm tại thời điểm khách đặt hàng.
+
+
+Bảng: pc_builds
+Chức năng: Lưu cấu hình máy tính do khách hàng tự xây dựng.
+
+
+Bảng: pc_build_items
+Chức năng: Lưu các linh kiện nằm trong một cấu hình PC.
+
+
+================================================
+MODULE 4: HR & PAYROLL
+Quản lý nhân viên, ca làm việc, chấm công và tính lương
+================================================
+
+Bảng: departments
+Chức năng: Lưu thông tin các phòng ban trong công ty.
+
+Ví dụ:
+Sales
+Marketing
+Accounting
+Warehouse
+
+
+Bảng: staff
+Chức năng: Lưu thông tin cá nhân của nhân viên.
+
+Trường đặc biệt:
+- department_id: Xác định nhân viên thuộc phòng ban nào.
+- avatar_url: Hình đại diện của nhân viên.
+
+
+Bảng: staff_accounts
+Chức năng: Lưu thông tin tài khoản đăng nhập của nhân viên trong hệ thống quản trị.
+
+Trường đặc biệt:
+- role_id: Vai trò của nhân viên trong hệ thống.
+
+
+Bảng: shifts
+Chức năng: Lưu thông tin các ca làm việc.
+
+Ví dụ:
+Ca sáng (08:00 - 16:00)
+Ca chiều (14:00 - 22:00)
+
+Trường đặc biệt:
+- working_hours: Tổng số giờ làm việc của ca.
+
+
+Bảng: staff_schedules
+Chức năng: Lưu lịch làm việc của nhân viên theo ngày hoặc theo tuần.
+
+
+Bảng: attendances
+Chức năng: Lưu dữ liệu chấm công của nhân viên.
+
+Trường đặc biệt:
+- check_in: Thời gian bắt đầu làm việc.
+- check_out: Thời gian kết thúc làm việc.
+- overtime_hours: Tổng số giờ làm thêm.
+- status: Trạng thái chấm công.
+
+Ví dụ:
+Present
+Late
+Absent
+Leave
+
+
+Bảng: leave_requests
+Chức năng: Lưu thông tin các đơn xin nghỉ phép của nhân viên.
+
+
+Bảng: salaries
+Chức năng: Lưu cấu hình lương của nhân viên.
+
+Trường đặc biệt:
+- base_salary: Lương cơ bản theo tháng.
+- hourly_rate: Lương tính theo giờ làm thêm.
+
+
+Bảng: bonuses
+Chức năng: Lưu các khoản thưởng của nhân viên.
+
+
+Bảng: allowances
+Chức năng: Lưu các khoản phụ cấp.
+
+Ví dụ:
+Phụ cấp ăn trưa
+Phụ cấp đi lại
+
+
+Bảng: deductions
+Chức năng: Lưu các khoản khấu trừ lương.
+
+Ví dụ:
+Bảo hiểm xã hội
+Bảo hiểm y tế
+Thuế thu nhập cá nhân
+
+
+Bảng: payrolls
+Chức năng: Lưu bảng lương tổng hợp của nhân viên theo từng kỳ.
+
+Trường đặc biệt:
+- overtime_pay: Tiền lương làm thêm.
+- allowance_total: Tổng phụ cấp.
+- bonus_total: Tổng tiền thưởng.
+- deduction_total: Tổng tiền khấu trừ.
+- net_salary: Lương thực nhận sau khi tính tất cả các khoản.
+
+
+
+================================================
+MODULE 5: PROMOTION & DISCOUNT
+Quản lý khuyến mãi và mã giảm giá
+================================================
+
+Bảng: promotions
+Chức năng: Lưu thông tin chương trình khuyến mãi.
+
+Trường đặc biệt:
+- discount_type: Kiểu giảm giá.
+
+Có 2 loại:
+percentage (giảm theo phần trăm)
+fixed (giảm theo số tiền)
+
+- discount_value: Giá trị giảm giá.
+- min_order_value: Giá trị đơn hàng tối thiểu để áp dụng khuyến mãi.
+
+
+Bảng: promotion_products
+Chức năng: Liên kết chương trình khuyến mãi với sản phẩm cụ thể.
+
+
+Bảng: promotion_categories
+Chức năng: Liên kết chương trình khuyến mãi với danh mục sản phẩm.
+
+
+Bảng: coupons
+Chức năng: Lưu mã giảm giá dành cho khách hàng.
+
+Trường đặc biệt:
+- code: Mã giảm giá khách nhập khi thanh toán.
+- usage_limit: Số lần tối đa mã có thể được sử dụng.
+- used_count: Số lần mã đã được sử dụng.
+
+
+================================================
+TỔNG SỐ BẢNG TRONG HỆ THỐNG
+================================================
+
+Admin & Permission: 4 bảng
+Product & Inventory: 7 bảng
+Sales & Orders: 7 bảng
+HR & Payroll: 12 bảng
+Promotion & Discount: 4 bảng
+
+Tổng cộng: 34 bảng
