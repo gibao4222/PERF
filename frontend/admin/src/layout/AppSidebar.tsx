@@ -14,9 +14,13 @@ import {
   PlugInIcon,
   TableIcon,
   UserCircleIcon,
+  AIIcon,
+  ShoppingCartIcon,
+  ChatIcon,
+  MailIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import SidebarWidget from "./SidebarWidget";
+// import SidebarWidget from "./SidebarWidget";
 
 type NavItem = {
   name: string;
@@ -29,7 +33,26 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+    subItems: [
+      { name: "Ecommerce", path: "/", pro: false },
+      { name: "CRM", path: "/crm", pro: false },
+      { name: "Stocks", path: "/stocks", pro: false },
+      { name: "Logistics", path: "/logistics", pro: false },
+    ],
+  },
+  {
+    icon: <AIIcon />,
+    name: "AI Assistant",
+    path: "/ai-assistant",
+  },
+  {
+    icon: <ShoppingCartIcon />,
+    name: "Shopping Cart",
+    subItems: [
+      { name: "Products", path: "/products", pro: false },
+      { name: "Add Product", path: "/add-product", pro: false },
+      { name: "Invoices", path: "/invoices", pro: false },
+    ],
   },
   {
     icon: <CalenderIcon />,
@@ -60,6 +83,22 @@ const navItems: NavItem[] = [
     ],
   },
 ];
+
+const supportItems: NavItem[] = [
+  {
+    name: "Chat",
+    icon: <ChatIcon />,
+    path: "/chat",
+  },
+  {
+    name: "Email",
+    icon: <MailIcon />,
+    subItems: [
+      { name: "Inbox", path: "/email/inbox", pro: false },
+      { name: "Details", path: "/email/details", pro: false },
+    ],
+  },
+]; 
 
 const othersItems: NavItem[] = [
   {
@@ -92,12 +131,14 @@ const othersItems: NavItem[] = [
   },
 ];
 
+
+
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
 
   const [openSubmenu, setOpenSubmenu] = useState<{
-    type: "main" | "others";
+    type: "main" | "support" | "others";
     index: number;
   } | null>(null);
   const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>(
@@ -113,14 +154,14 @@ const AppSidebar: React.FC = () => {
 
   useEffect(() => {
     let submenuMatched = false;
-    ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
+    ["main", "support", "others"].forEach((menuType) => {
+      const items = menuType === "main" ? navItems : menuType === "support" ? supportItems : othersItems;
       items.forEach((nav, index) => {
         if (nav.subItems) {
           nav.subItems.forEach((subItem) => {
             if (isActive(subItem.path)) {
               setOpenSubmenu({
-                type: menuType as "main" | "others",
+                type: menuType as "main" | "support" | "others",
                 index,
               });
               submenuMatched = true;
@@ -147,7 +188,7 @@ const AppSidebar: React.FC = () => {
     }
   }, [openSubmenu]);
 
-  const handleSubmenuToggle = (index: number, menuType: "main" | "others") => {
+  const handleSubmenuToggle = (index: number, menuType: "main" | "support" | "others") => {
     setOpenSubmenu((prevOpenSubmenu) => {
       if (
         prevOpenSubmenu &&
@@ -160,7 +201,7 @@ const AppSidebar: React.FC = () => {
     });
   };
 
-  const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
+  const renderMenuItems = (items: NavItem[], menuType: "main" | "support" | "others") => (
     <ul className="flex flex-col gap-4">
       {items.map((nav, index) => (
         <li key={nav.name}>
@@ -345,10 +386,26 @@ const AppSidebar: React.FC = () => {
                 {isExpanded || isHovered || isMobileOpen ? (
                   "Menu"
                 ) : (
-                  <HorizontaLDots className="size-6" />
+                  <HorizontaLDots/>
                 )}
               </h2>
               {renderMenuItems(navItems, "main")}
+            </div>
+            <div className="">
+              <h2
+                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
+                  !isExpanded && !isHovered
+                    ? "lg:justify-center"
+                    : "justify-start"
+                }`}
+              >
+                {isExpanded || isHovered || isMobileOpen ? (
+                  "Support"
+                ) : (
+                  <HorizontaLDots />
+                )}
+              </h2>
+              {renderMenuItems(supportItems, "support")}
             </div>
             <div className="">
               <h2
@@ -368,7 +425,7 @@ const AppSidebar: React.FC = () => {
             </div>
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
+        {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
       </div>
     </aside>
   );

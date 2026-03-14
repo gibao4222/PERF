@@ -15,6 +15,7 @@ import { ReactComponent as GridIcon } from "./grid.svg?react";
 import { ReactComponent as FileIcon } from "./file.svg?react";
 import { ReactComponent as DownloadIcon } from "./download.svg?react";
 import { ReactComponent as ArrowRightIcon } from "./arrow-right.svg?react";
+import { ReactComponent as ArrowLeftIcon } from "./arrow-left.svg?react";
 import { ReactComponent as GroupIcon } from "./group.svg?react";
 import { ReactComponent as BoxIconLine } from "./box-line.svg?react";
 import { ReactComponent as ShootingStarIcon } from "./shooting-star.svg?react";
@@ -54,8 +55,13 @@ import { ReactComponent as ChatIcon } from "./chat.svg?react";
 import { ReactComponent as MoreDotIcon } from "./moredot.svg?react";
 import { ReactComponent as AlertHexaIcon } from "./alert-hexa.svg?react";
 import { ReactComponent as ErrorHexaIcon } from "./info-hexa.svg?react";
-
+import { ReactComponent as AIIcon } from "./ai.svg?react";
+import { ReactComponent as ShoppingCartIcon } from "./shopping-cart.svg?react";
+import { ReactComponent as FilterIcon } from "./filter.svg?react";
 export {
+  AIIcon,
+  ShoppingCartIcon,
+  FilterIcon,
   ErrorHexaIcon,
   AlertHexaIcon,
   MoreDotIcon,
@@ -76,6 +82,7 @@ export {
   FolderIcon,
   ArrowDownIcon,
   ArrowRightIcon,
+  ArrowLeftIcon,
   GroupIcon,
   BoxIconLine,
   ShootingStarIcon,

@@ -18,6 +18,8 @@ import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
+import ProductTable from "./pages/ShoppingCart/Products";
+
 
 export default function App() {
   return (
@@ -51,6 +53,13 @@ export default function App() {
             {/* Charts */}
             <Route path="/line-chart" element={<LineChart />} />
             <Route path="/bar-chart" element={<BarChart />} />
+
+            {/* Shopping Cart*/}
+            <Route path="/products" element={<ProductTable />} />
+
+            {/* Email Subpages */}
+            {/* <Route path="/email/inbox" element={<Inbox />} />
+            <Route path="/email/details" element={<EmailDetails />} /> */}
           </Route>
 
           {/* Auth Layout */}
