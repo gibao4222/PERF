@@ -18,6 +18,7 @@ import {
   ShoppingCartIcon,
   ChatIcon,
   MailIcon,
+  PermissionIcon
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 // import SidebarWidget from "./SidebarWidget";
@@ -46,12 +47,25 @@ const navItems: NavItem[] = [
     path: "/ai-assistant",
   },
   {
+    icon: <PermissionIcon />,
+    name: "User Management",
+    subItems: [
+      { name: "User", path: "/user/info" ,pro: false },
+      { name: "Role", path: "/user/role" , pro: false},
+      { name: "Permission", path: "/user/permission", pro: false},
+      
+
+    ],
+  },
+  {
     icon: <ShoppingCartIcon />,
     name: "Shopping Cart",
     subItems: [
       { name: "Products", path: "/products", pro: false },
       { name: "Add Product", path: "/add-product", pro: false },
       { name: "Invoices", path: "/invoices", pro: false },
+      { name: "Create Invoice", path: "/create-invoice", pro: false },
+      { name: "Single Invoice", path: "/single-invoice", pro: false },
     ],
   },
   {

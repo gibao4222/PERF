@@ -4,15 +4,15 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-} from "../../ui/table";
+} from "../ui/table";
 import { useState } from "react";
 import { useRef, useEffect } from "react";
 // import Badge from "../../ui/badge/Badge";
-import { usePagination } from "../../../hooks/usePagination";
-import { ArrowRightIcon, ArrowLeftIcon, HorizontaLDots} from "../../../icons";
-import Button  from "../../ui/button/Button";
-import { Dropdown } from "../../ui/dropdown/Dropdown";
-import { DropdownItem } from "../../ui/dropdown/DropdownItem";
+import { usePagination } from "../../hooks/usePagination";
+import { ArrowRightIcon, ArrowLeftIcon, HorizontaLDots} from "../../icons";
+import Button  from "../ui/button/Button";
+import { Dropdown } from "../ui/dropdown/Dropdown";
+import { DropdownItem } from "../ui/dropdown/DropdownItem";
 
 interface Product {
     id: number;

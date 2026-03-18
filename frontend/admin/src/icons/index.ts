@@ -58,10 +58,20 @@ import { ReactComponent as ErrorHexaIcon } from "./info-hexa.svg?react";
 import { ReactComponent as AIIcon } from "./ai.svg?react";
 import { ReactComponent as ShoppingCartIcon } from "./shopping-cart.svg?react";
 import { ReactComponent as FilterIcon } from "./filter.svg?react";
+import { ReactComponent as MinusIcon } from "./minus.svg?react";
+import { ReactComponent as PrintIcon } from "./print.svg?react";
+import { ReactComponent as SaveIcon } from "./save.svg?react";
+import { ReactComponent as InfoBlackIcon } from "./info-black.svg?react";
+import { ReactComponent as PermissionIcon } from "./permission.svg?react";
+
 export {
   AIIcon,
   ShoppingCartIcon,
   FilterIcon,
+  PrintIcon,
+  SaveIcon,
+  PermissionIcon,
+  InfoBlackIcon,
   ErrorHexaIcon,
   AlertHexaIcon,
   MoreDotIcon,
@@ -72,6 +82,7 @@ export {
   VideoIcon,
   BoltIcon,
   PlusIcon,
+  MinusIcon,
   BoxIcon,
   CloseIcon,
   CheckCircleIcon,

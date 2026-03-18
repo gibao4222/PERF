@@ -19,7 +19,11 @@ import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
 import ProductTable from "./pages/ShoppingCart/Products";
-
+import AddProduct from "./pages/ShoppingCart/AddProduct";
+import Invoices from "./pages/ShoppingCart/Invoices";
+import CreateInvoice from "./pages/ShoppingCart/CreateInvoice";
+import SingleInvoice from "./pages/ShoppingCart/SingleInvoice";
+import Chat from "./pages/Support/Chat";
 
 export default function App() {
   return (
@@ -56,6 +60,13 @@ export default function App() {
 
             {/* Shopping Cart*/}
             <Route path="/products" element={<ProductTable />} />
+            <Route path="/add-product" element={<AddProduct />} />
+            <Route path="/invoices" element={<Invoices />} />
+            <Route path="/create-invoice" element={<CreateInvoice />} />
+            <Route path="/single-invoice/" element={<SingleInvoice />} />
+
+            {/* Support Pages */}
+            <Route path="/chat" element={<Chat />} />
 
             {/* Email Subpages */}
             {/* <Route path="/email/inbox" element={<Inbox />} />

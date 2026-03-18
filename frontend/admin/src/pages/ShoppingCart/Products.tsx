@@ -1,6 +1,6 @@
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import PageMeta from "../../components/common/PageMeta";
-import ProductTable from "../../components/tables/ProductTables/ProductTable";
+import ProductTable from "../../components/tables/ProductTable";
 import {DownloadIcon, PlusIcon, FilterIcon} from "../../icons";
 
 
@@ -31,7 +31,7 @@ export default function BasicTables() {
                     <DownloadIcon className="w-5 h-5"/>
 
                 </button>
-                <button className="inline-flex items-center justify-center transition gap-2 rounded-lg border border-gray-300 bg-blue-600 px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-blue-800 hover:text-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                <button onClick={() => window.location.href = "/add-product"} className="inline-flex items-center justify-center transition gap-2 rounded-lg border border-gray-300 bg-blue-600 px-4 py-3 text-theme-sm font-medium text-white shadow-theme-xs hover:bg-blue-800 hover:text-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                     <PlusIcon className="w-6 h-6"/>
                     Add Product
                 </button>
